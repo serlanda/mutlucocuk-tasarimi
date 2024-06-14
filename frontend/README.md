@@ -1,0 +1,5 @@
+- [ ] cart page ui hazirla
+- [ ] kullanici adres formu ekle
+- [ ] urunlerin toplam fiyatini renderla ve order butonu ekle
+- [ ] orderlari adminde maple
+- [ ] siparis tamamlandi ekrani ekle
