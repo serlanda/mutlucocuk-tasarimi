@@ -5,3 +5,19 @@
   body {
       @apply bg-white;
   }
+
+  @layer utilities {
+    .nav::after {
+        @apply content-[''] bg-[#A2D2FF] absolute h-[2px] w-[0%] left-0 -bottom-[3px] rounded-xl duration-200
+    }
+    .nav:hover::after {
+      @apply w-[100%]
+    }
+
+    .productTitle::after {
+      @apply content-[''] bg-[#FFAFCC] absolute h-[2px] w-[0%] left-0 -bottom-[3px] rounded-xl duration-200
+  }
+  .productTitle:hover::after {
+    @apply w-[100%]
+  }
+  }

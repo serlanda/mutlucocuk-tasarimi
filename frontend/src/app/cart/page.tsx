@@ -5,6 +5,7 @@ import CheckoutButton from "./_components/checkoutButton";
 import ItemDeleteButton from "./_components/itemDeleteButton";
 import { shoppingSessions } from "~/server/db/schema";
 import { allCartItems } from "./_actions/cartItem";
+import Link from "next/link";
 
 export default async function CartPage() {
   const user = auth();
@@ -26,13 +27,13 @@ export default async function CartPage() {
     .onConflictDoUpdate({ target: shoppingSessions.id, set: { total: totalPrice.toString() } });
 
   return (
-    <main className="p-10">
+    <main className="px-[60px] h-[90vh]">
       <h1 className="text-2xl font-semibold">Sepetim ({cartItems?.length})</h1>
       <section className="flex flex-col gap-4 py-4">
         {cartItems?.map((cartItem) => (
           <div
             key={cartItem.id}
-            className="flex flex-row gap-2 border border-black p-2"
+            className="flex flex-row gap-4 border border-black p-2"
           >
             <Image
               src={cartItem.products.image}
@@ -41,9 +42,9 @@ export default async function CartPage() {
               height={200}
             />
             <div className="flex w-[800px] flex-col gap-2">
-              <h2 className="text-xl font-semibold">
+              <Link href={`/products/${cartItem.products.id}`} className="productTitle relative w-fit text-xl font-semibold">
                 {cartItem.products.name}
-              </h2>
+              </Link>
               <span>Adet: {cartItem.quantity}</span>
               <span>Fiyat ₺ {cartItem.products.price}</span>
               <p className="mt-auto text-sm">
@@ -52,7 +53,7 @@ export default async function CartPage() {
             </div>
             <div className="mx-auto flex flex-row items-center justify-center gap-10">
               <span className="text-2xl font-semibold">
-                ₺ {cartItem.products.price * cartItem.quantity}
+                {cartItem.products.price * cartItem.quantity} TL
               </span>
             </div>
             <ItemDeleteButton id={cartItem.id} />

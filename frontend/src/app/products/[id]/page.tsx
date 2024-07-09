@@ -68,7 +68,7 @@ export default async function ProductPage({
           <AddToCart product={product} />
         </section>
       </main>
-      <div className="bg-red- h-screen px-6">
+      <div className="px-6">
         <h2 className="my-6 text-xl font-semibold">Değerlendirmeler</h2>
         <div className="flex flex-wrap gap-4">
           {!userComment && (

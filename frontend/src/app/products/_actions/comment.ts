@@ -25,7 +25,6 @@ export async function addComment(formData: FormData) {
     
     const data = result.data;
 
-    console.log(data);
     await db.insert(comments).values({
         userId: user.userId,
         productId: data.productId,

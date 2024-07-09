@@ -7,6 +7,7 @@ import TopBar from "./topBar";
 
 export default async function Navbar() {
   const user = auth();
+  const { sessionClaims } = auth();
 
   const cartItems = await db.query.cartItems.findMany({
     where: (model, { eq }) => eq(model.userId, user.userId),
@@ -15,19 +16,26 @@ export default async function Navbar() {
   return (
     <>
       <TopBar />
-      <header className="w-[100%] px-8 lg:py-[42px] xl:py-9 sticky -top-1 z-10 bg-[#FFFF]">
+      <header className="sticky -top-1 z-10 w-[100%] bg-[#FFFF] px-8 lg:py-[42px] xl:py-9">
         <div className="container relative mx-auto flex flex-grow-0 flex-row items-center justify-center lg:justify-between">
-          <ul className="mr-auto flex gap-10">
-            <li>
-              <Link href="/" className="text-xl">
+          <ul className="mr-auto flex gap-12">
+            <li className="nav relative">
+              <Link href="/" className="text-xl tracking-wide">
                 Ana Sayfa
               </Link>
             </li>
-            <li>
-              <Link href="/products" className="text-xl">
+            <li className="nav relative">
+              <Link href="/products" className="text-xl tracking-wide">
                 Tüm Ürünler
               </Link>
             </li>
+            {sessionClaims?.metadata.role === "admin" && (
+              <li className="nav relative">
+                <Link href="/admin" className="text-xl tracking-wide">
+                  Admin Paneli
+                </Link>
+              </li>
+            )}
           </ul>
           <Link
             href="/"
@@ -44,7 +52,7 @@ export default async function Navbar() {
           <div className="ml-auto flex items-center gap-6 text-xl font-semibold">
             <Link href="/cart" className="relative">
               {cartItems.length > 0 && (
-                <span className="absolute bottom-5 left-5 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] text-[#fff] text-sm">
+                <span className="absolute bottom-5 left-5 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] text-sm text-[#fff]">
                   {cartItems.length}
                 </span>
               )}
@@ -64,9 +72,7 @@ export default async function Navbar() {
               </svg>
             </Link>
             <SignedOut>
-              <SignInButton>
-                Giriş Yap
-              </SignInButton>
+              <SignInButton>Giriş Yap</SignInButton>
             </SignedOut>
             <SignedIn>
               <UserButton />
