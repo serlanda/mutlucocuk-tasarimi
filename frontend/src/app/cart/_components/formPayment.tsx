@@ -94,53 +94,100 @@ export default function FormPayment() {
   };
 
   return (
-    <div className="grid grid-cols-2">
-      <div className="flex flex-col items-center justify-center gap-4 bg-gray-500">
-        <h1 className="text-3xl">Ödeme Formu</h1>
-        <div className="flex h-64 w-96 flex-col gap-3">
-          <input
-            type="text"
-            placeholder="Kart Sahibi"
-            value={holderName}
-            onChange={(e) => setHolderName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Kart Numarası"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-          />
-          <div className="flex flex-row gap-3">
-            <input
-              type="text"
-              placeholder="Son Kullanma Ayı"
-              value={expireMonth}
-              onChange={(e) => setExpireMonth(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Son Kullanma Yılı"
-              value={expireYear}
-              onChange={(e) => setExpireYear(e.target.value)}
-            />
-          </div>
-          <input
-            type="text"
-            placeholder="CVC"
-            value={cvc}
-            onChange={(e) => setCvc(e.target.value)}
-          />
-          <button onClick={handlePayment}>Ödeme Yap</button>
-        </div>
-      </div>
-      <div className="h-64">
-        {response && (
-          <div className="rounded-lg border-2 bg-slate-200 p-10">
-            <h2>Sonuç:</h2>
-            <pre>{JSON.stringify(response, null, 2)}</pre>
-          </div>
-        )}
-      </div>
+    <section className="flex flex-col ml-[500px]">
+      <h2 className="text-3xl font-semibold py-2">Ödeme detayları</h2>
+      <h3 className="text-lg font-semibold py-2 text-slate-800">Kart üzerindeki isim</h3>
+      <input
+      type="text"
+      placeholder="Kart Sahibi"
+      className="border border-gray-400 w-[600px] py-2 px-4 rounded-lg text-lg font-semibold text-slate-800"
+      value={holderName}
+      onChange={(e) => setHolderName(e.target.value)}
+      required
+    />
+    <h3 className="text-lg font-semibold py-2 text-slate-800">Kart detayları</h3>
+    <div className="grid grid-cols-3 w-[600px]">
+    <input
+      type="text"
+      placeholder="Kart Numarası"
+      className="border border-gray-400 py-2 px-4 rounded-t-lg text-lg font-semibold text-slate-800 col-span-3"
+      value={cardNumber}
+      onChange={(e) => setCardNumber(e.target.value)}
+      required
+    />
+      <input
+        type="text"
+        placeholder="Son Kullanma Ayı"
+        className=" border-l border-b border-gray-400 py-2 px-4 rounded-bl-lg text-lg font-semibold text-slate-800"
+        value={expireMonth}
+        onChange={(e) => setExpireMonth(e.target.value)}
+        required
+      />
+       <input
+        type="text"
+        placeholder="Son Kullanma Yılı"
+        className="border-x border-b border-gray-400 py-2 px-4 text-lg font-semibold text-slate-800"
+        value={expireYear}
+        onChange={(e) => setExpireYear(e.target.value)}
+        required
+      />
+    <input
+      type="number"
+      placeholder="CVC"
+      className="border-r border-b border-gray-400 py-2 px-4 rounded-br-lg text-lg font-semibold text-slate-800"
+      value={cvc}
+      onChange={(e) => setCvc(e.target.value)}
+      required
+    />
     </div>
+    </section>
   );
-}
+
+{/* <div className="grid grid-cols-2">
+<div className="flex flex-col items-center justify-center gap-4 bg-gray-500">
+  <h1 className="text-3xl">Ödeme Formu</h1>
+  <div className="flex h-64 w-96 flex-col gap-3">
+    <input
+      type="text"
+      placeholder="Kart Sahibi"
+      value={holderName}
+      onChange={(e) => setHolderName(e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Kart Numarası"
+      value={cardNumber}
+      onChange={(e) => setCardNumber(e.target.value)}
+    />
+    <div className="flex flex-row gap-3">
+      <input
+        type="text"
+        placeholder="Son Kullanma Ayı"
+        value={expireMonth}
+        onChange={(e) => setExpireMonth(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Son Kullanma Yılı"
+        value={expireYear}
+        onChange={(e) => setExpireYear(e.target.value)}
+      />
+    </div>
+    <input
+      type="text"
+      placeholder="CVC"
+      value={cvc}
+      onChange={(e) => setCvc(e.target.value)}
+    />
+    <button onClick={handlePayment}>Ödeme Yap</button>
+  </div>
+</div>
+<div className="h-64">
+  {response && (
+    <div className="rounded-lg border-2 bg-slate-200 p-10">
+      <h2>Sonuç:</h2>
+      <pre>{JSON.stringify(response, null, 2)}</pre>
+    </div>
+  )}
+</div>
+</div> */}

@@ -6,6 +6,7 @@ import ItemDeleteButton from "./_components/itemDeleteButton";
 import { shoppingSessions } from "~/server/db/schema";
 import { allCartItems } from "./_actions/cartItem";
 import Link from "next/link";
+import { v4 as uuidv4 } from 'uuid';
 
 export default async function CartPage() {
   const user = auth();
@@ -20,7 +21,7 @@ export default async function CartPage() {
   await db
     .insert(shoppingSessions)
     .values({
-      id: user.userId,
+      id: uuidv4(),
       userId: user.userId,
       total: totalPrice?.toString() || "0",
     })

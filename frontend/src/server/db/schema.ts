@@ -70,7 +70,7 @@ export const cartItems = pgTable("cartItem", {
 
 export const shoppingSessions = pgTable("shoppingSession", {
   id: varchar("id").primaryKey(),
-  userId: varchar("userId").notNull(),
+  userId: varchar("userId").notNull().unique(),
   total: varchar("total").notNull(),
   createdAt: timestamp("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
@@ -79,7 +79,7 @@ export const shoppingSessions = pgTable("shoppingSession", {
 });
 
 export const comments = pgTable("comment", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: uuid("id:uuid").primaryKey().defaultRandom(),
   userId: varchar("userId").notNull(),
   author: varchar("userName", { length: 256 }).notNull(),
   productId: uuid("productId::uuid").notNull(),
