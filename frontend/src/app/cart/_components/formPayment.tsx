@@ -142,6 +142,7 @@ export default function FormPayment() {
     </div>
     </section>
   );
+}
 
 {/* <div className="grid grid-cols-2">
 <div className="flex flex-col items-center justify-center gap-4 bg-gray-500">
