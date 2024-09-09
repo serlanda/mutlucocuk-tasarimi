@@ -42,7 +42,7 @@ export default function Footer() {
           ></Image>
         </Link>
       </div>
-      <div className="flex flex-col text-xs tracking-widest relative top-4 p-1">
+      <div className="flex flex-col text-xs text-right tracking-widest relative top-4 px-1">
       <span>© 2024, MutluCocuk. Tüm hakları saklıdır.</span>
       </div>
     </footer>
