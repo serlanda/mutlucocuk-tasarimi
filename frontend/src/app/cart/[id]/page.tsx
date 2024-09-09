@@ -11,7 +11,7 @@ export default async function PaymentPage() {
   );
 
   return (
-    <main className="flex items-center justify-center">
+    <main className="flex items-center justify-center h-[100%] w-[100%] my-5">
     <FormPayment cartItems={cartItems} totalPrice={totalPrice} />
     </main>
   );

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import FormItems from "./formItems";
 
 export default function FormPayment({
   totalPrice,
@@ -31,11 +32,11 @@ export default function FormPayment({
       id: "BY789",
       name: "Mehmet Efe",
       surname: "Ümit",
-      gsmNumber: "+905350000000",
+      // gsmNumber: "+905350000000",
       email: "john.doe@example.com",
       identityNumber: "74300864791",
-      lastLoginDate: "2015-10-05 12:43:35",
-      registrationDate: "2013-04-21 15:12:09",
+      // lastLoginDate: "2015-10-05 12:43:35",
+      // registrationDate: "2013-04-21 15:12:09",
       registrationAddress: "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
       ip: "85.34.78.112",
       city: "Istanbul",
@@ -63,9 +64,9 @@ export default function FormPayment({
       id: `${cartItem.id}`,
       name: `${cartItem.products.name}`,
       category1: "MASA",
-      category2: "COCUK MASASI",
+      category2: `COCUK MASASI ADET : ${cartItem.quantity}`,
       itemType: "PHYSICAL",
-      price: `${cartItem.products.price}`,
+      price: `${cartItem.products.price * cartItem.quantity}`,
     }));
 
     const paymentData = {
@@ -99,7 +100,7 @@ export default function FormPayment({
 
   return (
     <>
-      <section className="flex flex-col">
+      <section className="flex flex-col justify-start items-center w-[50%] h-screen">
         <h2 className="py-2 text-center text-3xl font-semibold">
           Ödeme detayları
         </h2>
@@ -151,23 +152,14 @@ export default function FormPayment({
             required
           />
           <button
-            className="col-span-3 my-4 rounded-lg bg-[#A2D2FF] px-4 py-2 text-lg text-white"
+            className="col-span-3 my-4 rounded-lg bg-[#A2D2FF] px-4 py-2 text-lg text-white hover:bg-[#BDE0FE] transition-all"
             onClick={handlePayment}
           >
             Siparişi Tamamla
           </button>
         </div>
       </section>
-      <section>
-        <div className="h-64">
-          {response && (
-            <div className="rounded-lg border-2 bg-slate-200 p-10">
-              <h2>Sonuç:</h2>
-              <pre>{JSON.stringify(response, null, 2)}</pre>
-            </div>
-          )}
-        </div>
-      </section>
+      <FormItems totalPrice={totalPrice} cartItems={cartItems} />
     </>
   );
 }
