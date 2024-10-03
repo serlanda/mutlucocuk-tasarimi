@@ -7,16 +7,31 @@ import FormItems from "./formItems";
 export default function FormPayment({
   totalPrice,
   cartItems,
+  user,
+  ip,
 }: {
   totalPrice: number;
   cartItems: unknown[];
+  user: unknown;
+  ip: string;
 }) {
+
   const [cardNumber, setCardNumber] = useState("");
   const [expireMonth, setExpireMonth] = useState("");
   const [expireYear, setExpireYear] = useState("");
   const [cvc, setCvc] = useState("");
   const [holderName, setHolderName] = useState("");
   const [response, setResponse] = useState(null);
+
+  const [name, setName] = useState(`${user.firstName}`);
+  const [surname, setSurname] = useState(`${user.lastName}`);
+  const [identityNumber, setIdentityNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [gsmNumber, setGsmNumber] = useState("");
 
   const handlePayment = async () => {
     const paymentCard = {
@@ -29,35 +44,35 @@ export default function FormPayment({
     };
 
     const buyer = {
-      id: "BY789",
-      name: "Mehmet Efe",
-      surname: "Ümit",
-      // gsmNumber: "+905350000000",
-      email: "john.doe@example.com",
-      identityNumber: "74300864791",
+      id: `${user.id}`,
+      name: name,
+      surname: surname,
+      gsmNumber: gsmNumber,
+      email: `${user.email}`,
+      identityNumber: identityNumber,
       // lastLoginDate: "2015-10-05 12:43:35",
       // registrationDate: "2013-04-21 15:12:09",
-      registrationAddress: "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-      ip: "85.34.78.112",
-      city: "Istanbul",
+      registrationAddress: address,
+      ip: ip,
+      city: city,
       country: "Turkey",
-      zipCode: "34732",
+      zipCode: zipCode,
     };
 
     const shippingAddress = {
-      contactName: "Jane Doe",
-      city: "Istanbul",
+      contactName: name,
+      city: city,
       country: "Turkey",
-      address: "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-      zipCode: "34742",
+      address: `${address} ${address2} ${district}`,
+      zipCode: zipCode,
     };
 
     const billingAddress = {
-      contactName: "Jane Doe",
-      city: "Istanbul",
+      contactName: name,
+      city: city,
       country: "Turkey",
-      address: "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
-      zipCode: "34742",
+      address: `${address} ${address2} ${district}`,
+      zipCode: zipCode,
     };
 
     const basketItems = cartItems.map((cartItem) => ({
@@ -73,7 +88,7 @@ export default function FormPayment({
       price: `${totalPrice}`,
       paidPrice: `${totalPrice}`,
       currency: "TRY",
-      basketId: "B67832",
+      basketId: "sa",
       paymentCard: paymentCard,
       buyer: buyer,
       shippingAddress: shippingAddress,
@@ -100,29 +115,94 @@ export default function FormPayment({
 
   return (
     <>
-      <section className="flex flex-col justify-start items-center w-[50%] h-screen">
-        <h2 className="py-2 text-center text-3xl font-semibold">
-          Ödeme detayları
-        </h2>
-        <h3 className="py-2 text-lg font-semibold text-slate-800">
-          Kart üzerindeki isim
-        </h3>
-        <input
-          type="text"
-          placeholder="Kart Sahibi"
-          className="w-[600px] rounded-lg border border-gray-400 px-4 py-2 text-lg font-semibold text-slate-800"
-          value={holderName}
-          onChange={(e) => setHolderName(e.target.value)}
-          required
-        />
-        <h3 className="py-2 text-lg font-semibold text-slate-800">
-          Kart detayları
-        </h3>
+      <section className="flex w-[50%] flex-col items-center justify-center">
+        <h2 className="py-2 text-center text-3xl font-semibold">Adres</h2>
+        <div className="grid w-[600px] grid-cols-4">
+          <input
+            type="text"
+            placeholder="Ad"
+            className="col-span-2 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Soyadı"
+            className="col-span-2 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Adres"
+            className="col-span-4 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Apartman, daire, vb. (isteğe bağlı)"
+            className="col-span-2 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={address2}
+            onChange={(e) => setAddress2(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Posta Kodu (isteğe bağlı)"
+            className="col-span-2 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="T.C. Kimlik Numarası"
+            className="col-span-4 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={identityNumber}
+            onChange={(e) => setIdentityNumber(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Şehir"
+            className="col-span-2 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="İlçe"
+            className="col-span-2 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={district}
+            onChange={(e) => setDistrict(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Telefon"
+            className="col-span-4 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={gsmNumber}
+            onChange={(e) => setGsmNumber(e.target.value)}
+            required
+          />
+        </div>
+        <h2 className="py-2 text-center text-3xl font-semibold">Ödeme</h2>
         <div className="grid w-[600px] grid-cols-3">
           <input
             type="text"
+            placeholder="Kart Üzerindeki İsim"
+            className="col-span-3 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
+            value={holderName}
+            onChange={(e) => setHolderName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
             placeholder="Kart Numarası"
-            className="col-span-3 rounded-t-lg border border-gray-400 px-4 py-2 text-lg font-semibold text-slate-800"
+            className="col-span-3 m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
             required
@@ -130,7 +210,7 @@ export default function FormPayment({
           <input
             type="text"
             placeholder="Son Kullanma Ayı"
-            className=" rounded-bl-lg border-b border-l border-gray-400 px-4 py-2 text-lg font-semibold text-slate-800"
+            className="m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
             value={expireMonth}
             onChange={(e) => setExpireMonth(e.target.value)}
             required
@@ -138,7 +218,7 @@ export default function FormPayment({
           <input
             type="text"
             placeholder="Son Kullanma Yılı"
-            className="border-x border-b border-gray-400 px-4 py-2 text-lg font-semibold text-slate-800"
+            className="m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
             value={expireYear}
             onChange={(e) => setExpireYear(e.target.value)}
             required
@@ -146,71 +226,20 @@ export default function FormPayment({
           <input
             type="number"
             placeholder="CVC"
-            className="rounded-br-lg border-b border-r border-gray-400 px-4 py-2 text-lg font-semibold text-slate-800"
+            className="m-2 rounded-lg border border-gray-400 px-4 py-2 font-semibold text-slate-800"
             value={cvc}
             onChange={(e) => setCvc(e.target.value)}
             required
           />
           <button
-            className="col-span-3 my-4 rounded-lg bg-[#A2D2FF] px-4 py-2 text-lg text-white hover:bg-[#BDE0FE] transition-all"
+            className="col-span-3 my-4 rounded-lg bg-[#A2D2FF] px-4 py-2 text-lg text-white transition-all hover:bg-[#BDE0FE]"
             onClick={handlePayment}
           >
-            Siparişi Tamamla
+            Şimdi Öde
           </button>
         </div>
       </section>
-      <FormItems totalPrice={totalPrice} cartItems={cartItems} />
+      <FormItems totalPrice={totalPrice} cartItems={cartItems} user={user} />
     </>
   );
-}
-
-{
-  /* <div className="grid grid-cols-2">
-<div className="flex flex-col items-center justify-center gap-4 bg-gray-500">
-<h1 className="text-3xl">Ödeme Formu</h1>
-<div className="flex h-64 w-96 flex-col gap-3">
-<input
-type="text"
-      placeholder="Kart Sahibi"
-      value={holderName}
-      onChange={(e) => setHolderName(e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder="Kart Numarası"
-      value={cardNumber}
-      onChange={(e) => setCardNumber(e.target.value)}
-    />
-    <div className="flex flex-row gap-3">
-      <input
-        type="text"
-        placeholder="Son Kullanma Ayı"
-        value={expireMonth}
-        onChange={(e) => setExpireMonth(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Son Kullanma Yılı"
-        value={expireYear}
-        onChange={(e) => setExpireYear(e.target.value)}
-      />
-    </div>
-    <input
-      type="text"
-      placeholder="CVC"
-      value={cvc}
-      onChange={(e) => setCvc(e.target.value)}
-    />
-    <button onClick={handlePayment}>Ödeme Yap</button>
-  </div>
-</div>
-<div className="h-64">
-  {response && (
-    <div className="rounded-lg border-2 bg-slate-200 p-10">
-      <h2>Sonuç:</h2>
-      <pre>{JSON.stringify(response, null, 2)}</pre>
-    </div>
-  )}
-</div>
-</div> */
 }

@@ -22,3 +22,11 @@ export async function allCartItems() {
 
   return cartItems;
 }
+
+export async function getUser() {
+  const user = await db.query.users.findFirst({
+    where: (model, { eq }) => eq(model.clerkId, auth().userId),
+  });
+
+  return user;
+}
