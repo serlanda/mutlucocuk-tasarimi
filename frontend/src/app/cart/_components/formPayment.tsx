@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import FormItems from "./formItems";
+import { useRouter } from "next/navigation";
 
 export default function FormPayment({
   totalPrice,
@@ -15,6 +16,7 @@ export default function FormPayment({
   user: unknown;
   ip: string;
 }) {
+  const router = useRouter();
 
   const [cardNumber, setCardNumber] = useState("");
   const [expireMonth, setExpireMonth] = useState("");
@@ -76,7 +78,7 @@ export default function FormPayment({
     };
 
     const basketItems = cartItems.map((cartItem) => ({
-      id: `${cartItem.id}`,
+      id: `${cartItem.productId}`,
       name: `${cartItem.products.name}`,
       category1: "MASA",
       category2: `COCUK MASASI ADET : ${cartItem.quantity}`,
@@ -106,8 +108,14 @@ export default function FormPayment({
           },
         },
       );
-
       setResponse(response.data);
+
+      // if (response?.data.status === "success") {
+      //   router.push("/orders");
+      // }
+
+      response.data.status === "success" && router.push("/orders")
+
     } catch (error) {
       console.error("Error:", error);
     }
@@ -237,6 +245,7 @@ export default function FormPayment({
           >
             Şimdi Öde
           </button>
+          <span className="font-bold text-[#d62828]">{response?.errorMessage}</span>
         </div>
       </section>
       <FormItems totalPrice={totalPrice} cartItems={cartItems} user={user} />

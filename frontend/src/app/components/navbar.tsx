@@ -50,6 +50,14 @@ export default async function Navbar() {
             ></Image>
           </Link>
           <div className="ml-auto flex items-center gap-6 text-xl font-semibold">
+            {sessionClaims && (
+              <Link
+                href="/orders"
+                className="nav relative tracking-wide font-normal mr-6"
+              >
+                Siparişlerim
+              </Link>
+            )}
             <Link href="/cart" className="relative">
               {cartItems.length > 0 && (
                 <span className="absolute bottom-5 left-5 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] text-sm text-[#fff]">

@@ -9,7 +9,6 @@ export default function FormItems({
   cartItems: unknown[];
   user: unknown;
 }) {
-
   return (
     <section className="relative flex justify-center w-[50%] flex-col bg-[#F7F7F9] p-10 rounded-md border-2">
       {cartItems.map((cartItem) => (

@@ -13,9 +13,9 @@ export default async function HomePage() {
       <ImageSlider />
       <Carousel />
       <main className="mt-8">
-        <ul className="container mx-auto grid grid-cols-12 gap-2.5 md:gap-4"> 
+        <ul className="container mx-auto grid grid-cols-12 gap-2.5 2xl:gap-4"> 
           {products.map((product) => (
-            <li key={product.id} className="col-span-6 md:col-span-4 lg:col-span-3 rounded-xl overflow-hidden">
+            <li key={product.id} className="col-span-6 md:col-span-4 xl:col-span-3 rounded-xl overflow-hidden">
               <Product product={product} />
             </li>
           ))}
@@ -24,5 +24,10 @@ export default async function HomePage() {
     </>
   );
 }
-// flex flex-wrap items-center justify-center gap-4
-// w-max h-[460px]
+
+// container mx-auto grid grid-cols-12 gap-2.5 md:gap-4
+
+// col-span-6 md:col-span-4 lg:col-span-3 rounded-xl overflow-hidden
+
+// container mx-auto grid grid-cols-12 gap-2.5 2xl:gap-4
+// col-span-6 lg:col-span-4 2xl:col-span-3 rounded-xl overflow-hidden
