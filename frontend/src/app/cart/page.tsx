@@ -25,7 +25,13 @@ export default async function CartPage() {
       userId: user.userId,
       total: totalPrice?.toString() || "0",
     })
-    .onConflictDoUpdate({ target: shoppingSessions.id, set: { total: totalPrice.toString() } });
+    .onConflictDoUpdate({ 
+      target: shoppingSessions.userId, 
+      set: { 
+        total: totalPrice?.toString() || "0",
+        updatedAt: new Date()
+      } 
+    });
 
   return (
     <main className="px-[60px] h-[90vh]">

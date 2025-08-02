@@ -2,6 +2,7 @@
 import { useFormStatus } from "react-dom";
 import { addComment } from "../_actions/comment";
 import StarRate from "./starRate";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
 export default function AddComment({ product }) {
   return (
@@ -52,7 +53,12 @@ export default function AddComment({ product }) {
           value={product}
           required
         />
-        <CommentSubmitButton />
+        <SignedOut>
+          <SignInButton className="absolute -bottom-0.5 right-0 rounded-full border border-black px-3 py-0.5 text-lg font-semibold text-black transition-colors hover:bg-[#FFAFCC] hover:text-white">Giriş Yap</SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <CommentSubmitButton />
+        </SignedIn>
       </div>
     </form>
   );

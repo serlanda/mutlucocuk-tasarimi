@@ -92,6 +92,32 @@ export const comments = pgTable("comment", {
   updatedAt: timestamp("updatedAt"),
 });
 
+export const orders = pgTable("order", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: varchar("userId").notNull(),
+  orderNumber: varchar("orderNumber", { length: 256 }).notNull().unique(),
+  status: varchar("status", { length: 50 }).notNull().default("pending"),
+  totalAmount: integer("totalAmount").notNull(),
+  shippingAddress: varchar("shippingAddress", { length: 512 }).notNull(),
+  paymentMethod: varchar("paymentMethod", { length: 100 }).notNull(),
+  trackingNumber: varchar("trackingNumber", { length: 256 }),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
+
+export const orderItems = pgTable("orderItem", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  orderId: uuid("orderId").notNull(),
+  productId: uuid("productId").notNull(),
+  quantity: integer("quantity").notNull(),
+  price: integer("price").notNull(),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+});
+
 export const commentRelations = relations(comments, ({ one }) => ({
   products: one(products, {
     fields: [comments.productId],
@@ -137,5 +163,24 @@ export const shoppingSessionRelations = relations(shoppingSessions, ({ one }) =>
   users: one(users, {
     fields: [shoppingSessions.userId],
     references: [users.clerkId],
+  }),
+}));
+
+export const orderRelations = relations(orders, ({ one, many }) => ({
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.clerkId],
+  }),
+  orderItems: many(orderItems),
+}));
+
+export const orderItemRelations = relations(orderItems, ({ one }) => ({
+  order: one(orders, {
+    fields: [orderItems.orderId],
+    references: [orders.id],
+  }),
+  product: one(products, {
+    fields: [orderItems.productId],
+    references: [products.id],
   }),
 }));

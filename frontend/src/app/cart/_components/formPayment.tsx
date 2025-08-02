@@ -4,6 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import FormItems from "./formItems";
 import { useRouter } from "next/navigation";
+import { createOrder } from "~/app/orders/_actions/orderActions";
+import { allCartItems } from "../_actions/cartItem";
 
 export default function FormPayment({
   totalPrice,
@@ -110,11 +112,27 @@ export default function FormPayment({
       );
       setResponse(response.data);
 
-      // if (response?.data.status === "success") {
-      //   router.push("/orders");
-      // }
+      if (response.data.status === "success") {
+        try {
+          // Create order in database
+          const cartItemsData = await allCartItems();
+          const shippingAddressFormatted = `${address} ${address2} ${district}, ${city}`;
+          
+          await createOrder({
+            userId: user.id,
+            totalAmount: totalPrice,
+            shippingAddress: shippingAddressFormatted,
+            paymentMethod: "Kredi Kartı",
+            cartItems: cartItemsData
+          });
 
-      response.data.status === "success" && router.push("/orders")
+          router.push("/orders");
+        } catch (error) {
+          console.error("Error creating order:", error);
+          // Still redirect to orders page even if order creation fails
+          router.push("/orders");
+        }
+      }
 
     } catch (error) {
       console.error("Error:", error);

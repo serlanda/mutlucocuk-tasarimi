@@ -33,29 +33,6 @@ export default async function ProductPage({
             width={800}
             height={800}
           />
-          <div className="flex gap-4">
-          <Image
-            src={product.image}
-            alt={product.name}
-            className="scale-x-[-1] transform rounded-lg object-contain hover:opacity-70 transition-colors"
-            width={100}
-            height={100}
-          />
-          <Image
-            src={product.image}
-            alt={product.name}
-            className="transform rounded-lg object-contain hover:opacity-70 transition-colors"
-            width={100}
-            height={100}
-          />
-          <Image
-            src={product.image}
-            alt={product.name}
-            className="scale-x-[-1] transform rounded-lg object-contain hover:opacity-70 transition-colors"
-            width={100}
-            height={100}
-          />
-          </div>
         </section>
         <section className="m-6 flex w-[900px] flex-col items-center">
           <div className="overflow-hidden text-left lg:h-[500px] xl:h-[700px]">

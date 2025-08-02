@@ -1,23 +1,23 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  
-  body {
-      @apply bg-white;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-white;
+}
+
+@layer utilities {
+  .nav::after {
+    @apply absolute -bottom-[3px] left-0 h-[2px] w-[0%] rounded-xl bg-[#A2D2FF] duration-200 content-[''];
+  }
+  .nav:hover::after {
+    @apply w-[100%];
   }
 
-  @layer utilities {
-    .nav::after {
-        @apply content-[''] bg-[#A2D2FF] absolute h-[2px] w-[0%] left-0 -bottom-[3px] rounded-xl duration-200
-    }
-    .nav:hover::after {
-      @apply w-[100%]
-    }
-
-    .productTitle::after {
-      @apply content-[''] bg-[#FFAFCC] absolute h-[2px] w-[0%] left-0 -bottom-[3px] rounded-xl duration-200
+  .productTitle::after {
+    @apply absolute -bottom-[3px] left-0 h-[2px] w-[0%] rounded-xl bg-[#FFAFCC] duration-200 content-[''];
   }
   .productTitle:hover::after {
-    @apply w-[100%]
+    @apply w-[100%];
   }
-  }
+}
